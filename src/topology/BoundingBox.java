@@ -27,6 +27,10 @@ public class BoundingBox {
 
 	public void setWidth(int width) {
 		this.width = width;
+		size = width*height;
+		nbEdgesHorizontal = (height+1) * width;
+		nbEdgesVertical = (width+1) * height;
+		nbEdges = nbEdgesHorizontal + nbEdgesVertical;
 	}
 
 	public int getHeight() {
@@ -35,6 +39,14 @@ public class BoundingBox {
 
 	public void setHeight(int height) {
 		this.height = height;
+		size = width*height;
+		nbEdgesHorizontal = (height+1) * width;
+		nbEdgesVertical = (width+1) * height;
+		nbEdges = nbEdgesHorizontal + nbEdgesVertical;
+	}
+	
+	public int[] getBb() {
+		return bb;
 	}
 
 	public BoundingBox (BufferedImage bi){
@@ -62,9 +74,5 @@ public class BoundingBox {
 		}
 		resume += "\nwidth : "+width+"\nheight : "+height+"\nsize"+size+"\nnbEdges : "+nbEdges+"\nnbEdgesHorizontal : "+nbEdgesHorizontal+"\nnbEdgesVertical : "+nbEdgesVertical;
 		return resume;
-	}
-	
-	public int[] getBb() {
-		return bb;
 	}
 }

@@ -1,24 +1,20 @@
 package topology;
 
+import java.io.IOException;
+
 /** @author Alexi Courieux
  * @author Nathan Fournier*/
 public class Point {
-	
 //Variables
-	
 	private BoundingBox bb;
 	private int i, j;
-	
 //Constructors	
-	
 	public Point(BoundingBox _bb, int _i, int _j){
 		setBb(_bb);
 		setI(_i);
 		setJ(_j);
 	}
-	
 //Methods
-	
 	/**Check if this point is equal to another one*/
 	public boolean isEqualTo(Point p){
 		if(this.equals(p)){
@@ -26,7 +22,6 @@ public class Point {
 		}
 		return false;
 	}
-	
 	/**Check if this point is on the border of his BoundingBox*/
 	public boolean onBorder(){
 		if(this.i == this.bb.getBb()[0] //left
@@ -37,7 +32,6 @@ public class Point {
 		}
 		return false;
 	}
-	
 	/**Check if this point is on the corner of his BoundingBox*/
 	public boolean onCorner(){
 		if(this.onBorder()){ //if the point isn't a border, it cannot be a corner
@@ -53,11 +47,9 @@ public class Point {
 		}
 		return false;
 	}
-	
 /*	public Edge[] outerEdges(){
 		//TODO Point - outerEdge()
 	}*/
-	
 	@Override
 	public String toString() {
 		return super.toString();
@@ -70,21 +62,16 @@ public class Point {
 		}
 		return false;
 	}
-	
 //Getters & Setters
-	
 	public BoundingBox getBb() {
 		return bb;
 	}
-	
 	public void setBb(BoundingBox bb) {
 		this.bb = bb;
 	}
-	
 	public int getI() {
 		return i;
 	}
-	
 	public void setI(int i) {
 		if (i < this.bb.getBb()[0]
 				&& i > this.bb.getBb()[0]+this.bb.getWidth()){
@@ -92,11 +79,9 @@ public class Point {
 		}
 		this.i = i;			
 	}
-	
 	public int getJ() {
 		return j;
 	}
-	
 	public void setJ(int j) {
 		if (j < this.bb.getBb()[1]
 				&& j > this.bb.getBb()[1]+this.bb.getHeight()){

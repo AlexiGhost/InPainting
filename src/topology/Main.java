@@ -13,11 +13,11 @@ public class Main {
 		
 		for(int i=0; i<bb.getWidth(); i++){
 			for(int j=bb.getHeight()/2; j<bb.getHeight(); j++){
-				bb.getVal()[i][j].set(new Color(254,0,0));
+				bb.getVal()[i][j].set(new Color(255,0,0));
 			}
 		}
 		
-		bb.save("C:\\Users\\Admin\\Pictures\\fond ecran\\");
+		bb.save("C:\\Users\\Admin\\Pictures\\fond ecran\\imageMatrix");
 
 	}
 
