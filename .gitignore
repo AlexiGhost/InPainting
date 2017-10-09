@@ -25,3 +25,7 @@ hs_err_pid*
 bin/*
 bin/
 bin/visual/*
+/.settings/
+.settings/*
+.settings/
+.settings
