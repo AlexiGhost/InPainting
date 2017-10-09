@@ -63,4 +63,8 @@ public class BoundingBox {
 		resume += "\nwidth : "+width+"\nheight : "+height+"\nsize"+size+"\nnbEdges : "+nbEdges+"\nnbEdgesHorizontal : "+nbEdgesHorizontal+"\nnbEdgesVertical : "+nbEdgesVertical;
 		return resume;
 	}
+	
+	public int[] getBb() {
+		return bb;
+	}
 }
