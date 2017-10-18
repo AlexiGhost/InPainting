@@ -47,9 +47,58 @@ public class Point {
 		}
 		return false;
 	}
-/*	public Edge[] outerEdges(){
-		//TODO Point - outerEdge()
-	}*/
+	
+	/**@return the set of Edges that have the point as a starting point*/
+	public Edge[] outerEdges(){
+		Edge[] edges = null;
+		if (onBorder()){
+			if(onCorner()){
+				//corner
+				edges = new Edge[2];
+				if(i==0 && j==0){ //top left
+					edges[0]= new Edge(bb, 0, i, j, 1);
+					edges[1]= new Edge(bb, 1, i, j, 1);
+				} else if(i==bb.getWidth() && j==0) { //top right
+					edges[0]= new Edge(bb, 0, i, j, -1);
+					edges[1]= new Edge(bb, 1, i, j, 1);
+				} else if(i==0 && j==bb.getHeight()) { //bottom left
+					edges[0]= new Edge(bb, 0, i, j, 1);
+					edges[1]= new Edge(bb, 1, i, j, -1);
+				} else { //bottom right
+					edges[0]= new Edge(bb, 0, i, j, -1);
+					edges[1]= new Edge(bb, 1, i, j, -1);
+				}
+			} else {
+				//border
+				edges = new Edge[3];
+				if(j==0){ //top
+					edges[0]= new Edge(bb, 0, i, j, 1);
+					edges[1]= new Edge(bb, 0, i, j, -1);
+					edges[2]= new Edge(bb, 1, i, j, 1);
+				} else if(j==bb.getHeight()){ //bottom
+					edges[0]= new Edge(bb, 0, i, j, 1);
+					edges[1]= new Edge(bb, 0, i, j, -1);
+					edges[2]= new Edge(bb, 1, i, j, -1);
+				} else if(i==0){ //left
+					edges[0]= new Edge(bb, 0, i, j, 1);
+					edges[1]= new Edge(bb, 1, i, j, -1);
+					edges[2]= new Edge(bb, 1, i, j, 1);
+				} else { //right
+					edges[0]= new Edge(bb, 0, i, j, -1);
+					edges[1]= new Edge(bb, 1, i, j, -1);
+					edges[2]= new Edge(bb, 1, i, j, 1);
+				}
+			}
+		} else {
+			//Classic
+			edges = new Edge[4];
+			edges[2]= new Edge(bb, 0, i, j, 1);
+			edges[0]= new Edge(bb, 0, i, j, -1);
+			edges[1]= new Edge(bb, 1, i, j, -1);
+			edges[2]= new Edge(bb, 1, i, j, 1);
+		}
+		return edges;
+	}
 	@Override
 	public String toString() {
 		return super.toString();
