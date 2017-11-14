@@ -1,6 +1,8 @@
 package topology;
 import java.io.IOException;
-/**A mask defines the area to reconstruct*/
+/**A mask defines the area to reconstruct
+ * @author Alexi Courieux
+ * @author Nathan Fournier*/
 public class Mask extends BoundingBox
 	{
 		public boolean[][] val;
