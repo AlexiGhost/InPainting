@@ -9,15 +9,11 @@ import javax.imageio.ImageIO;
 public class Main {
 
 	public static void main(String[] args) throws IOException {
-		Matrix bb = new Matrix("C:\\Users\\Admin\\Pictures\\fond ecran\\arrow.jpg");
-		
-		for(int i=0; i<bb.getWidth(); i++){
-			for(int j=bb.getHeight()/2; j<bb.getHeight(); j++){
-				bb.getVal()[i][j].set(new Color(255,0,0));
-			}
-		}
-		
-		bb.save("C:\\Users\\Admin\\Pictures\\fond ecran\\imageMatrix");
+		Matrix matrix = new Matrix("C:\\Users\\Admin\\Desktop\\IUT Informatique\\2emeAnnee\\S3\\Maths Modélisation\\dr.jpg");
+		Color color = new Color(0,0,0);
+		Mask mask = new Mask(matrix,color);
+		matrix.applyMask(mask);
+		matrix.save("C:\\Users\\Admin\\Desktop\\IUT Informatique\\2emeAnnee\\S3\\Maths Modélisation\\dr2");
 
 	}
 

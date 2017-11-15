@@ -26,7 +26,7 @@ public class Matrix extends BoundingBox{
 				red   = (clr & 0x00ff0000) >> 16;
 				green = (clr & 0x0000ff00) >> 8;
 				blue  =  clr & 0x000000ff;
-				val[i][j] = new Color(red, green, blue);
+				val[i][j] = new Color(blue, green, red);
 			}
 		}
 	}
@@ -36,7 +36,7 @@ public class Matrix extends BoundingBox{
 		BufferedImage img = new BufferedImage(this.width,this.height, BufferedImage.TYPE_3BYTE_BGR);
 		for(int i = 0; i < this.width; i++) {
 			for(int j = 0; j < this.height; j++) {
-				img.setRGB(i, j, ((-1 << 24) + (val[i][j].getVal()[0] << 16) + (val[i][j].getVal()[1] << 8) + (val[i][j].getVal()[2])));
+				img.setRGB(i, j, ((-1 << 24) + (val[i][j].getVal()[2] << 16) + (val[i][j].getVal()[1] << 8) + (val[i][j].getVal()[0])));
 			}
 		}
 		File file = new File(fName + ".bmp");
@@ -48,9 +48,9 @@ public class Matrix extends BoundingBox{
 	}
 	/**Set every pixels of the Mask entered in parameters at black*/
 	 public void applyMask(Mask mask){
-		 for(int i; i<this.width; i++){
-			 for(int j; i<this.height; j++){
-				 if(mask.getVal[i][j])
+		 for(int i=0; i<this.width; i++){
+			 for(int j=0; j<this.height; j++){
+				 if(mask.getVal()[i][j])
 					 this.val[i][j].set(new Color(0,0,0));
 			 }
 		 }
