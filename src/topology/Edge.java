@@ -17,6 +17,17 @@ public class Edge {
 		this.i = i;
 		this.j = j;
 		this.orientation = orientation;
+		
+		int[][] = this.border();
+		
+		if(orientation == -1){
+			Point tmp = this.border()[0];
+			this.border()[0] = this.border()[1];
+			this.border()[1] = tmp; 
+		}
+		
+		String labelTmp = '1'+ String.valueOf(this.border()[0].getI()) + String.valueOf(this.border()[0].getJ()) + String.valueOf(this.border()[1].getI()) + String.valueOf(this.border()[1].getJ());
+		this.label = Integer.valueOf(labelTmp);
 	}
 	//Methods
 	/**Return a table of the two points at the ends of the edge*/

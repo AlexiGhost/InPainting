@@ -9,7 +9,7 @@ public class Patch{
 	int[] tab = new int[4];
 	tab[0] = Math.max(0, point.getI() - halfwidth) - point.getI();
 	tab[1] = Math.max(0, point.getJ() - halfwidth) - point.getJ();
-	tab[2] = Math.min(window.getWidth(), point.getJ() + halfwidth) - point.getI();
+	tab[2] = Math.min(window.getWidth(), point.getI() + halfwidth) - point.getI();
 	tab[3] = Math.min(window.getHeight(), point.getJ() + halfwidth) - point.getJ();
 	boundingBox = new BoundingBox(tab);	
 	}

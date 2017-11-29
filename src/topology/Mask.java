@@ -5,7 +5,7 @@ import java.io.IOException;
  * @author Nathan Fournier*/
 public class Mask extends BoundingBox
 	{
-		public boolean[][] val;
+		private boolean[][] val;
 		/**@param point a  point of the BoundingBox
 			@return True if on the pixel that as point for a corner belongs to the mask (4 pixels at most)*/
 		public boolean[][] getVal() {
