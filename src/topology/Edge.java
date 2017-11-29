@@ -59,5 +59,11 @@ public class Edge {
 		}
 		return str;
 	}
+	public int getLabel(){
+		return label;
+	};
+	public int getOrientation(){
+		return orientation;
+	}
 	
 }
