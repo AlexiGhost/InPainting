@@ -49,6 +49,14 @@ public class BoundingBox {
 		return bb;
 	}
 
+	public int getNbEdgesHorizontal() {
+		return nbEdgesHorizontal;
+	}
+	
+	public int getNbEdgesVertical() {
+		return nbEdgesVertical;
+	}
+	
 	public BoundingBox (BufferedImage bi){
 		this(new int[]{0,0,bi.getWidth(),bi.getHeight()});
 	}

@@ -18,16 +18,18 @@ public class Edge {
 		this.j = j;
 		this.orientation = orientation;
 		
-		int[][] = this.border();
+		Point[] points = this.border();
 		
 		if(orientation == -1){
-			Point tmp = this.border()[0];
-			this.border()[0] = this.border()[1];
-			this.border()[1] = tmp; 
+			Point tmp = points[0];
+			points[0] = points[1];
+			points[1] = tmp; 
 		}
 		
-		String labelTmp = '1'+ String.valueOf(this.border()[0].getI()) + String.valueOf(this.border()[0].getJ()) + String.valueOf(this.border()[1].getI()) + String.valueOf(this.border()[1].getJ());
-		this.label = Integer.valueOf(labelTmp);
+		if(direction == 1){
+			label = points[0].getJ() + points[0].getI() * bb.getHeight();
+		}else
+			label = (points[0].getI() + points[0].getJ() * bb.getWidth()) + bb.getNbEdgesVertical();
 	}
 	//Methods
 	/**Return a table of the two points at the ends of the edge*/
