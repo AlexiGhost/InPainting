@@ -49,6 +49,14 @@ public class BoundingBox {
 		return bb;
 	}
 
+	public int getNbEdgesHorizontal() {
+		return nbEdgesHorizontal;
+	}
+	
+	public int getNbEdgesVertical() {
+		return nbEdgesVertical;
+	}
+	
 	public BoundingBox (BufferedImage bi){
 		this(new int[]{0,0,bi.getWidth(),bi.getHeight()});
 	}
@@ -74,5 +82,14 @@ public class BoundingBox {
 		}
 		resume += "\nwidth : "+width+"\nheight : "+height+"\nsize"+size+"\nnbEdges : "+nbEdges+"\nnbEdgesHorizontal : "+nbEdgesHorizontal+"\nnbEdgesVertical : "+nbEdgesVertical;
 		return resume;
+	}
+	
+	public BoundingBox crop(Patch patch) {
+		return new BoundingBox(new int[] {
+			bb[0] - patch.getBoundingBox().bb[0],
+			bb[1] - patch.getBoundingBox().bb[1],
+			bb[2] - patch.getBoundingBox().bb[2],
+			bb[3] - patch.getBoundingBox().bb[3],
+		});
 	}
 }

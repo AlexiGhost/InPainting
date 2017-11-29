@@ -17,6 +17,19 @@ public class Edge {
 		this.i = i;
 		this.j = j;
 		this.orientation = orientation;
+		
+		Point[] points = this.border();
+		
+		if(orientation == -1){
+			Point tmp = points[0];
+			points[0] = points[1];
+			points[1] = tmp; 
+		}
+		
+		if(direction == 1){
+			label = points[0].getJ() + points[0].getI() * bb.getHeight();
+		}else
+			label = (points[0].getI() + points[0].getJ() * bb.getWidth()) + bb.getNbEdgesVertical();
 	}
 	//Methods
 	/**Return a table of the two points at the ends of the edge*/
