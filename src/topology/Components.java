@@ -12,6 +12,9 @@ public class Components {
 	}
 	/**Construct the list of all connected components of the given mask*/
 	public Components(Boundary boundary){
-		
+		Tag tag = new Tag(boundary);
+		do{
+			components.add(new Component(tag, tag.seedPoint()));
+		}while(tag.seedPoint() != null);
 	}
 }
