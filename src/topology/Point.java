@@ -1,7 +1,5 @@
 package topology;
 
-import java.io.IOException;
-
 /** @author Alexi Courieux
  * @author Nathan Fournier*/
 public class Point {
