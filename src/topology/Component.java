@@ -36,6 +36,7 @@ public class Component {
 		
 		for (Point point : points) {
 			s += i+"-\ti: "+point.getI()+"; j: "+point.getJ();
+			i++;
 		}
 		
 		s += "\n----------------------------------------------------------------\n";
