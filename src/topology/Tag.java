@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 public class Tag {
 	Boundary boundary;
-	int[] index = new int[boundary.getEdges().size()]; //
+	int[] index = new int[boundary.bb.nbEdges]; //
 	boolean[] active = new boolean[boundary.getEdges().size()]; //True : edge "to do"
 	int nbActive; //the number of active edges
 	

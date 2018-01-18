@@ -24,10 +24,12 @@ public class Component {
 				point = edgePoints[1];
 			
 			tag.active[index] = false;
+			tag.nbActive--;
 			index = tag.indexActiveOuterEdge(point);
 		}
 		
-		points.add(point);
+		if(point.getI() != points.get(0).getI() || point.getJ() != points.get(0).getJ())
+			points.add(point);
 	}
 	
 	public String toString(){
