@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Components {
 	/**Array of all the connected components of the boundary of the mask*/
-	public List<Component> components = new ArrayList<>();
+	private List<Component> components = new ArrayList<>();
 	/**Return the number of connected components*/
 	public int size(){
 		return components.size();
@@ -16,5 +16,9 @@ public class Components {
 		do{
 			components.add(new Component(tag, tag.seedPoint()));
 		}while(tag.seedPoint() != null);
+	}
+	
+	public List<Component> getComponents() {
+		return components;
 	}
 }

@@ -43,4 +43,8 @@ public class Component {
 		
 		return s;
 	}
+	
+	public List<Point> getPoints() {
+		return points;
+	}
 }
