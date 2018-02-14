@@ -1,11 +1,13 @@
 package topology;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Component {
-	private List<Point> points;
+	public List<Point> points;
 	
 	public Component(Tag tag, Point seedPoint) {
+		points = new ArrayList();
 		Point point = seedPoint;
 		int index;
 		
@@ -24,12 +26,10 @@ public class Component {
 				point = edgePoints[1];
 			
 			tag.active[index] = false;
-			tag.nbActive--;
 			index = tag.indexActiveOuterEdge(point);
 		}
 		
-		if(point.getI() != points.get(0).getI() || point.getJ() != points.get(0).getJ())
-			points.add(point);
+		points.add(point);
 	}
 	
 	public String toString(){
@@ -44,9 +44,5 @@ public class Component {
 		s += "\n----------------------------------------------------------------\n";
 		
 		return s;
-	}
-	
-	public List<Point> getPoints() {
-		return points;
 	}
 }

@@ -1,57 +1,81 @@
 package topology;
 
+import java.awt.image.*;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
+/**
+	Tag active edges of a boundary
+*/
 public class Tag {
-	Boundary boundary;
-	int[] index = new int[boundary.bb.nbEdges]; //
-	boolean[] active = new boolean[boundary.getEdges().size()]; //True : edge "to do"
-	int nbActive; //the number of active edges
-	
-	public Tag(Boundary boundary){
-		Arrays.fill(index, -1);
-		int ind=0;
-		for(Edge edge : boundary.getEdges()){
-			index[edge.getLabel()]=ind;
-			ind++;
-		}
-		Arrays.fill(active,  true);
-		nbActive = boundary.getEdges().size(); //ou ind ???
-	}
-	
-	/**Found the seed point of the boundary*/
-	Point seedPoint(){
-		int ind = 0;
-		for(boolean bEdge : active){ //return a point if he's in border of boundary
-			if(bEdge){
-				Edge edge = boundary.getEdges().get(ind);
-				Point point = edge.border()[0];
-				if(point.onBorder()) return point;
+		/**
+			Array that for each (non oriented) Edge of the bounding box affects either
+				-1 if the edge does not belong to the boundary
+				k the index of the edge in the array boundary.edges
+		*/
+		int[] index;		// reference to the edge
+		/**
+			Is True if the edge is active (i.e. not yet treated)
+		*/
+		boolean[] active;	// tag = True/False
+		/**
+			Nb of Edge yet to treat
+		*/
+		int nbActive;		// nb of active edges
+		/**
+			boundary to Tag
+		*/
+		Boundary boundary; 
+		/**
+			Set all the fields
+		*/
+		public Tag(Boundary _boundary){
+			boundary=_boundary;
+			index=new int[boundary.bb.nbEdges];
+			Arrays.fill(index,-1);
+			int k=0;
+			for(Edge edge:boundary.edges) index[edge.label]=k++;
+			nbActive=k;
+			active=new boolean[nbActive];
+			Arrays.fill(active,true);}
+		/** 
+			@return a valid SeedPoint if exists.
+			A valid Seed Point 
+				- Is the initial vertex of an active edge
+				- For connected components of the active set that touched the boundary of the bounding box, the
+				active point is located on the boundary.
+				- For connected components of the active set that do not touched the boundary, any point of the active
+				connected component is a valid seed point.
+		*/
+		Point SeedPoint(){
+			// We look for boundary points first
+			for(int k=0;k<active.length;k++)
+				if(active[k]){
+					Edge edge=boundary.edges.get(k);
+					Point point=edge.border()[0];
+					if(point.onBorder()) return point;}
+			// If none found, we look for inner points
+			for(int k=0;k<active.length;k++)
+				if(active[k]){
+					Edge edge=boundary.edges.get(k);
+					Point point=edge.border()[0];
+					return point;}
+			return null;}
+		/** 
+			@return the index of an active outer edge to point (if exists) ; -1 if no active outer edge is found
+		*/
+		int indexActiveOuterEdge(Point point){
+			Edge[] test=point.outerEdges();
+			for (Edge edge:point.outerEdges())
+			{	
+				int k=index[edge.label];
+				if(k!=-1)
+					if(boundary.edges.get(k).orientation==edge.orientation)
+						if(active[k]) return k;
 			}
-			ind++;
-		}
-		ind = 0;
-		for(boolean bEdge : active){ //return the first point into the boundary
-			if(bEdge){
-				Edge edge = boundary.getEdges().get(ind);
-				Point point = edge.border()[0];
-				return point;
-			}
-			ind++;
-		}
-		return null; //no active edges
+			return -1;}
 	}
-	/**Return the index of the first active edge (-1 if null)*/
-	int indexActiveOuterEdge(Point point){
-		for (Edge edge : point.outerEdges())
-		{	
-			int ind = index[edge.getLabel()];
-			if(ind != -1) {//if this index is in the boundary
-				if(boundary.getEdges().get(ind).getOrientation()==edge.getOrientation()){
-					if(active[ind]) return ind; //edge "to do"
-				}
-			}
-		}
-		return -1;
-	}
-}

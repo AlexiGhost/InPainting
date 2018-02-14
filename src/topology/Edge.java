@@ -1,69 +1,89 @@
 package topology;
 
-/** @author Matthieu Cabanes
- * @author Meriam Zekri*/
+import java.awt.image.*;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+import java.util.ArrayList;
+import java.util.Arrays;
 
-public class Edge {
-	//Variables
-	private static int[][] v = {{1,0},{0,1}}; //Axes used to determine a point with an edge and its other point
-	private BoundingBox bb;
-	private int orientation, i, j;
-	private int direction;
-	private int label; //not used for now
-	//Constructors
-	public Edge(BoundingBox bb, int direction, int i, int j, int orientation) {
-		this.bb = bb;
-		this.direction = direction;
-		this.i = i;
-		this.j = j;
-		this.orientation = orientation;
-		
-		Point[] points = this.border();
-		
-		if(orientation == -1){
-			Point tmp = points[0];
-			points[0] = points[1];
-			points[1] = tmp; 
+	public class Edge 			// Edge of a domain
+	{
+		private static int[][] v={{1,0},{0,1}};
+		private int direction,i,j;
+		public int orientation;
+		/** Each non oriented edge is endowed with a unique label */
+		public int label;
+		private BoundingBox bb;
+		public Point[] border()
+		{	// vertices of the oriented edge
+			Point[] bd=new Point[2];
+			bd[0]=new Point(bb,i,j);
+			bd[1]=new Point(bb,i+orientation*v[direction][0],j+orientation*v[direction][1]);
+			return bd;
 		}
-		
-		if(direction == 1){
-			label = points[0].getJ() + points[0].getI() * bb.getHeight();
-		}else
-			label = (points[0].getI() + points[0].getJ() * bb.getWidth()) + bb.getNbEdgesVertical();
-	}
-	//Methods
-	/**Return a table of the two points at the ends of the edge*/
-	public Point[] border(){
-		Point[] pointTab = new Point[2];
-		pointTab[0] = new Point(this.bb, this.i, this.j);
-		pointTab[1] = new Point(this.bb, this.i + this.orientation * v[this.direction][0], this.j + this.orientation * v[this.direction][1]);
-		return pointTab;
-	}
-	/**Return the description of the edge (origin point, direction, orientation)*/
-	public String toString(){
-		String str = "Mon point d'origine a pour coordonnees i: "+this.i+" et j: "+this.j+".\n";
-		if(direction == 1){
-			str += "Je suis oriente verticalement, ";
-			if(orientation == 1){
-				str += "vers le bas.";
-			}else{
-				str += "vers le haut.";
-			}
-		}else{
-			str += "Je suis oriente horizontalement, ";
-			if(orientation == 1){
-				str += "vers la droite.";
-			}else{
-				str += "vers la gauche.";
-			}
+		@Override
+		public String toString(){
+			Point[] vertices=border();
+			return vertices[0]+"-"+vertices[1];
 		}
-		return str;
+		public Edge(BoundingBox _bb,int _direction,int _i,int _j,int _orientation)
+		{
+			bb=_bb;
+			direction=_direction;
+			i=_i;
+			j=_j;
+			orientation=_orientation;
+			/*
+				We want a unique label between
+				
+				0 and  bb.nbEdges-1 (independent of the orientation).
+				There is several ways to do it.
+				
+				First, we labeled unoriented 
+
+				horizontal edges from
+				0 to bb.nbEdgesHorinzontal-1
+
+				veritcal edges from
+				bb.nbEdgesHorizontal to bb.nbEgdes-1
+
+				We considere the center of the edge (is does not depend on the orientation).
+
+				It is
+
+				(i+orientation/2*v[direction],j+orientation/2*v[direcation])
+
+				The minimal value is (1/2,1/2). So we substract it to get
+
+				(i+orientation/2*v[direction][0]-1/2,j+orientation/2*v[direcation][1]-1/2)
+
+				Then for horinzontal edges, the first term (i+orientation/2*v[direction]-1/2) goes
+				from 0 to bb.with, thus be get a unique label
+
+				(i+orientation/2*v[direction][0]-1/2)+(j+orientation/2*v[direction][1]-1/2)*bb.width
+				=
+				(i+(orientation-1)/2*v[direction][0])+(j+(orientation-1)/2*v[direction][1])*bb.width
+
+				A similar formula is obtained for vertical edges  switchinig the role of i and j.
+			*/
+
+			if(direction==0)
+				{label=	 (i+(orientation-1)/2*v[direction][0])
+						+(j+(orientation-1)/2*v[direction][1])*bb.width;}
+			else
+				{label=bb.nbEdgesHorizontal+
+				 		 (i+(orientation-1)/2*v[direction][0])*bb.height
+						+(j+(orientation-1)/2*v[direction][1]);}
+		}	
+		/*
+			direction=0 => horizontal edges
+			direction=1 => vertical edges	
+			
+			orientation=+/-1 
+				postive orientation correspond to
+					left to righBt for horizontal edges
+					up to down for vertical edges
+				(the converse for negative value)
+		*/
 	}
-	public int getLabel(){
-		return label;
-	};
-	public int getOrientation(){
-		return orientation;
-	}
-	
-}

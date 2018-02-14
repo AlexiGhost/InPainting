@@ -11,7 +11,7 @@ import javax.imageio.ImageIO;
 
 public class Matrix extends BoundingBox{
 	//Variables
-	private Color[][] val;
+	public Color[][] val;
 	//Constructors
 	/**Take every information of an image which its file name has been entered in the parameters, and save them in a Matrix*/ 
 	public Matrix(String fileName) throws IOException{
@@ -35,7 +35,7 @@ public class Matrix extends BoundingBox{
 		BufferedImage img = new BufferedImage(this.width,this.height, BufferedImage.TYPE_3BYTE_BGR);
 		for(int i = 0; i < this.width; i++) {
 			for(int j = 0; j < this.height; j++) {
-				img.setRGB(i, j, ((-1 << 24) + (val[i][j].getVal()[2] << 16) + (val[i][j].getVal()[1] << 8) + (val[i][j].getVal()[0])));
+				img.setRGB(i, j, ((-1 << 24) + (val[i][j].val[2] << 16) + (val[i][j].val[1] << 8) + (val[i][j].val[0])));
 			}
 		}
 		File file = new File(fName + ".bmp");
@@ -49,7 +49,7 @@ public class Matrix extends BoundingBox{
 	 public void applyMask(Mask mask){
 		 for(int i=0; i<this.width; i++){
 			 for(int j=0; j<this.height; j++){
-				 if(mask.getVal()[i][j])
+				 if(mask.val[i][j])
 					 this.val[i][j].set(new Color(0,0,0));
 			 }
 		 }
