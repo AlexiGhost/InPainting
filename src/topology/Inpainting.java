@@ -147,7 +147,7 @@ public class Inpainting {
 						copyPatch(best_point,patch);	//update image and mask
 					}
 				}
-				image.save("C:\\Users\\Admin\\Desktop\\IUT Informatique\\2emeAnnee\\S3\\Maths Modélisation\\saut3");
+				image.save("tests/TestCouleur3");
 			}
 			b=new Boundary(m);
 			C=new Components(b);
