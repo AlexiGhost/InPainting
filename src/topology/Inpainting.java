@@ -126,7 +126,7 @@ public class Inpainting {
 		@param searchWidth margin of the seraching box around the connected components.
 			If searchWidth=0, the searchingBox is chosen as the whole window.
 	*/
-	public void restore(int halfwidth, int searchWidth) throws IOException {
+	public void restore(int halfwidth, int searchWidth, String output) throws IOException {
 		Boundary b=new Boundary(m);
 		
 		Components C=new Components(b);
@@ -147,7 +147,7 @@ public class Inpainting {
 						copyPatch(best_point,patch);	//update image and mask
 					}
 				}
-				image.save("C:\\Users\\Admin\\Desktop\\IUT Informatique\\2emeAnnee\\S3\\Maths Modélisation\\saut3");
+				image.save(output);
 			}
 			b=new Boundary(m);
 			C=new Components(b);
