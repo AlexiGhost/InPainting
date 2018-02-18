@@ -9,7 +9,7 @@ public class Main {
 		Color color = new Color(0,255,0);
 		Mask mask = new Mask(matrix,color);
 		Inpainting i = new Inpainting(matrix,mask);
-		i.restore(5, 20);
+		i.restore(5, 100);
 	}
 
 }
