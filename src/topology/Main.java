@@ -29,5 +29,4 @@ public class Main {
 			Desktop.getDesktop().open(new File(output+".bmp"));
 		}
 	}
-
 }
